@@ -10,6 +10,9 @@ public class Pedido {
         this.id = id;
         this.carrinho = carrinho;
     }
+    public Pedido() {
+        this.carrinho = new ArrayList<ItemPedido>();
+    }
 
     public void setCarrinho(ArrayList<ItemPedido> carrinho) {
         this.carrinho = carrinho;
@@ -24,14 +27,22 @@ public class Pedido {
         return id;
     }
 
-    public void addItem(Item novoItem){
-
+    public void addItem(Item novoItem, int quantidade){
+        carrinho.add(new ItemPedido(novoItem, quantidade));
     }
-    public void rmItem(Item item){
-
+    public void rmItem(ItemPedido item){
+        int i = carrinho.indexOf(item);
+        if (i != -1) 
+            carrinho.remove(i);
+        else 
+            System.out.println("Item não encontrado");
     }
-    public void edItem(Item item, int novaQuant){
-
+    public void edItem(ItemPedido item, int novaQuant){
+        int i = carrinho.indexOf(item);
+        if (i != -1) 
+            carrinho.set(i, new ItemPedido(item.getItem(), novaQuant));
+        else 
+        System.out.println("Item não encontrado");
     }
     public double calcularTotal(){
         double total = 0;
